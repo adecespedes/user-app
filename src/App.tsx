@@ -87,6 +87,29 @@ function App() {
     }
   };
 
+  const handleAddPost = async (newPost: { title: string; body: string }) => {
+    if (!selectedUser) return;
+
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newPost,
+        userId: selectedUser.id,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al crear la publicación");
+    }
+
+    const createdPost: Post = await response.json();
+
+    setUserPosts((prevPosts) => [createdPost, ...prevPosts]);
+  };
+
   const handleModalClose = () => {
     setSelectedUser(null);
     setUserPosts([]);
@@ -161,6 +184,7 @@ function App() {
           onClose={handleModalClose}
           user={selectedUser!}
           posts={userPosts}
+          onAddPost={handleAddPost}
         />
       </main>
     </div>
