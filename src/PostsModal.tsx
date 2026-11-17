@@ -41,7 +41,7 @@ export const PostsModal: React.FC<PostsModalProps> = ({
           {posts.length === 0 ? (
             <p className="empty-state">No hay publicaciones para este usuario</p>
           ) : (
-            <table>
+            <table className="posts-table">
               <thead>
                 <tr>
                   <th>Título</th>
@@ -63,11 +63,7 @@ export const PostsModal: React.FC<PostsModalProps> = ({
             </table>
           )}
         </div>
-        <div className="posts-modal-footer">
-          <button className="btn-cerrar" onClick={onClose}>
-            Cerrar
-          </button>
-        </div>
+        {/* Footer quitado - solo queda header con ✕ */}
       </div>
     </div>
   );

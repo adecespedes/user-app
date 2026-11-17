@@ -1,6 +1,5 @@
 /* =========================================
-   User Search App - Compact Layout v3
-   with Posts Modal (Separate Component)
+   User Search App - Compact Layout v4
    ========================================= */
 
 /* CSS Variables - Color Palette */
@@ -179,7 +178,15 @@ body::before {
   gap: 0.375rem;
 }
 
-/* Espacio entre cards - usando gap en el contenedor */
+.user-card:hover {
+  border-color: var(--primary);
+  box-shadow: 
+    0 2px 8px rgba(99, 102, 241, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+/* Espacio entre cards */
 .users-list {
   display: flex;
   flex-direction: column;
@@ -187,7 +194,7 @@ body::before {
   margin-top: 0.5rem;
 }
 
-/* User Header - Name y Username juntos */
+/* User Header */
 .user-header {
   display: flex;
   align-items: center;
@@ -218,7 +225,7 @@ body::before {
   flex-shrink: 0;
 }
 
-/* User contact items - Telefon, Email, Web */
+/* User contact items */
 .user-contact-item {
   font-size: 0.65rem;
   color: var(--text-secondary);
@@ -255,7 +262,7 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
-/* Reducir height de las líneas p en general */
+/* Link styles */
 .user-card p {
   margin: 0;
   font-size: 0.65rem;
@@ -263,9 +270,8 @@ body::before {
 }
 
 /* =========================================
-   Posts Modal - Tabla Format
+   Posts Table - SINGLE LINE SEPARATION
    ========================================= */
-/* Modal overlay */
 .posts-modal {
   position: fixed;
   top: 0;
@@ -282,24 +288,29 @@ body::before {
 
 /* Modal content */
 .posts-modal-content {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  width: 90%;
+  background: white;
+  width: 95%;
   max-width: 800px;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow-y: auto;
   animation: modalIn 0.3s ease-out;
   margin: 1rem;
+  border: none;
 }
 
-/* Modal header */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal header - SIN botón de abajo */
 .posts-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
+  background: #f8fafc;
+  border-bottom: 2px solid var(--border);
 }
 
 .posts-modal-header h3 {
@@ -320,6 +331,7 @@ body::before {
   border-radius: 4px;
 }
 
+/* BOTÓN CERRAR SOLAMENTE EN HEADER */
 .posts-modal-close {
   background: none;
   border: none;
@@ -327,67 +339,97 @@ body::before {
   color: var(--text-muted);
   cursor: pointer;
   padding: 0.25rem;
-  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .posts-modal-close:hover {
-  background: rgba(0, 0, 0, 0.1);
   color: var(--error);
+  transform: rotate(90deg);
 }
 
-/* Modal body with table */
-.posts-modal-body {
-  padding: 1rem 1.5rem;
-}
-
-.posts-modal-body .empty-state {
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Tabla de publicaciones */
+/* =========================================
+   Table - ÚNICA línea de separación
+   ========================================= */
 .posts-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 0;
+  font-size: 0.8rem;
 }
 
 .posts-table th {
-  background: var(--fondo-ligero);
-  padding: 0.75rem 1rem;
-  text-align: left;
-  font-size: 0.75rem;
-  font-weight: 600;
+  background: #f8fafc;
   color: var(--text-primary);
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   border-bottom: 2px solid var(--border);
+  border-right: 2px solid var(--border);
+}
+
+.posts-table th:first-child {
+  border-radius: 0;
+  border-right: none;
+}
+
+.posts-table th:last-child {
+  border-radius: 0;
+  border-left: none;
 }
 
 .posts-table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.65rem;
-  color: var(--text-secondary);
+  padding: 0.875rem 1rem;
+  border-bottom: 2px solid var(--border); /* ← ÚNICA línea de separación */
+  border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
 }
 
-.posts-table tr:nth-child(even) {
-  background: rgba(99, 102, 241, 0.03);
+.posts-table td:first-child {
+  border-left: 2px solid var(--primary);
+  padding-left: 1.25rem;
 }
 
+.posts-table td:last-child {
+  border-right: 2px solid var(--primary);
+  padding-right: 1.25rem;
+}
+
+/* Las filas NO tienen border-top para evitar dobles líneas */
+.posts-table tr {
+  border-top: none;
+  border-bottom: none;
+}
+
+/* Hover efecto sutil */
 .posts-table tr:hover {
   background: rgba(99, 102, 241, 0.05);
 }
 
+.posts-table tr:hover td {
+  border-color: var(--primary);
+}
+
+/* Última fila - su línea bottom ya viene del td */
+.posts-table tr:last-child {
+}
+
+/* Título de la publicación */
 .posts-table .post-title {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.375rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.4;
 }
 
+/* Cuerpo de la publicación */
 .posts-table .post-body {
   font-size: 0.65rem;
   color: var(--text-secondary);
@@ -398,29 +440,11 @@ body::before {
   overflow: hidden;
 }
 
-/* Modal footer */
-.posts-modal-footer {
-  padding: 0 1.5rem 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Botón cerrar */
-.btn-cerrar {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-cerrar:hover {
-  background: var(--primary-dark);
-  transform: translateY(1px);
+/* Estado vacío */
+.posts-modal-body .empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
 }
 
 /* =========================================
@@ -485,7 +509,13 @@ body::before {
   /* Modal en mobile */
   .posts-modal-content {
     margin: 0.5rem;
-    border-radius: 8px;
+    border: none;
+  }
+
+  .posts-modal-header {
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border-bottom: 2px solid var(--border);
   }
 
   .posts-modal-header h3 {
@@ -506,11 +536,6 @@ body::before {
   .posts-table .post-body {
     font-size: 0.5rem;
     -webkit-line-clamp: 2;
-  }
-
-  .btn-cerrar {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.65rem;
   }
 }
 
@@ -579,7 +604,13 @@ body::before {
   /* Modal en xs */
   .posts-modal-content {
     margin: 0.5rem;
-    border-radius: 6px;
+    border: none;
+  }
+
+  .posts-modal-header {
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-bottom: 2px solid var(--border);
   }
 
   .posts-modal-header h3 {
@@ -600,10 +631,5 @@ body::before {
   .posts-table .post-body {
     font-size: 0.35rem;
     -webkit-line-clamp: 2;
-  }
-
-  .btn-cerrar {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.5rem;
   }
 }
