@@ -1,0 +1,92 @@
+/* You can add global CSS styles here */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 10px 16px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  width: 300px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.user-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-card h3 {
+  margin: 0 0 10px 0;
+  color: #1f2937;
+  font-size: 18px;
+}
+
+.user-card p {
+  margin: 5px 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.user-card a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.user-card a:hover {
+  text-decoration: underline;
+}
+
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
+}
