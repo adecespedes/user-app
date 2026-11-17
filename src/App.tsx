@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import { PostsModal } from "./PostsModal";
 
 interface User {
   id: number;
@@ -19,11 +20,24 @@ interface User {
   website: string;
 }
 
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  userId: number;
+}
+
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedUser, setSelectedUser] = useState<{
+    id: number;
+    name: string;
+    username: string;
+  } | null>(null);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -53,6 +67,31 @@ function App() {
     }
   };
 
+  const handleUserClick = (userId: number) => {
+    const user = users.find((u) => u.id === userId);
+    if (user) {
+      setSelectedUser({
+        id: user.id,
+        name: user.name,
+        username: user.username,
+      });
+      fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+        .then((res) => res.json())
+        .then((posts) => {
+          setUserPosts(posts);
+        })
+        .catch((err) => {
+          console.error(err);
+          setUserPosts([]);
+        });
+    }
+  };
+
+  const handleModalClose = () => {
+    setSelectedUser(null);
+    setUserPosts([]);
+  };
+
   if (isLoading) {
     return <div className="loading">Cargando usuarios...</div>;
   }
@@ -80,7 +119,15 @@ function App() {
             </div>
           ) : (
             filteredUsers.map((user) => (
-              <div key={user.id} className="user-card">
+              <div
+                key={user.id}
+                className="user-card"
+                onClick={() => handleUserClick(user.id)}
+                style={{
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
                 <div className="user-header">
                   <h3 className="user-name">{user.name}</h3>
                   <span className="user-username">@{user.username}</span>
@@ -92,7 +139,8 @@ function App() {
                   <strong>Correo:</strong> {user.email}
                 </p>
                 <p className="user-contact-item">
-                  <strong>Sitio web:</strong> <a
+                  <strong>Sitio web:</strong>{" "}
+                  <a
                     href={`https://${user.website}`}
                     target="_blank"
                     rel="noopener"
@@ -107,6 +155,13 @@ function App() {
             ))
           )}
         </div>
+
+        <PostsModal
+          isOpen={!!selectedUser}
+          onClose={handleModalClose}
+          user={selectedUser!}
+          posts={userPosts}
+        />
       </main>
     </div>
   );
