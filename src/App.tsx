@@ -73,7 +73,7 @@ function App() {
       </header>
 
       <main className="main-content">
-        <div className="users-grid">
+        <div className="users-list">
           {filteredUsers.length === 0 && searchTerm !== "" ? (
             <div className="empty-state">
               No se encontraron usuarios con ese nombre
@@ -81,19 +81,18 @@ function App() {
           ) : (
             filteredUsers.map((user) => (
               <div key={user.id} className="user-card">
-                <h3>{user.name}</h3>
-                <p>
-                  <strong>Usuario:</strong> {user.username}
-                </p>
-                <p>
-                  <strong>Email:</strong> {user.email}
-                </p>
-                <p>
+                <div className="user-header">
+                  <h3 className="user-name">{user.name}</h3>
+                  <span className="user-username">@{user.username}</span>
+                </div>
+                <p className="user-contact-item">
                   <strong>Teléfono:</strong> {user.phone}
                 </p>
-                <p>
-                  <strong>Sitio web:</strong>{" "}
-                  <a
+                <p className="user-contact-item">
+                  <strong>Correo:</strong> {user.email}
+                </p>
+                <p className="user-contact-item">
+                  <strong>Sitio web:</strong> <a
                     href={`https://${user.website}`}
                     target="_blank"
                     rel="noopener"
@@ -101,9 +100,8 @@ function App() {
                     {user.website}
                   </a>
                 </p>
-                <p>
-                  <strong>Dirección:</strong> {user.address.street},{" "}
-                  {user.address.city} {user.address.zipcode}
+                <p className="user-address">
+                  {user.address.street}, {user.address.city}
                 </p>
               </div>
             ))
