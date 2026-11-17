@@ -296,11 +296,27 @@ body::before {
   animation: modalIn 0.3s ease-out;
   margin: 1rem;
   border: none;
+  position: relative;
 }
 
 @keyframes modalIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal header sticky - se queda arriba al hacer scroll */
+.posts-modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-bottom: 2px solid var(--border);
+}
+
+/* Ajuste para que el contenido no se superponga con el header sticky */
+.posts-modal-body {
+  margin-top: 44px;
+  padding-top: 1rem;
 }
 
 /* Modal header - SIN botón de abajo */
@@ -310,7 +326,6 @@ body::before {
   align-items: center;
   padding: 1rem 1.5rem;
   background: #f8fafc;
-  border-bottom: 2px solid var(--border);
 }
 
 .posts-modal-header h3 {
@@ -358,6 +373,11 @@ body::before {
 }
 
 .posts-table th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  .posts-table th {
   background: #f8fafc;
   color: var(--text-primary);
   padding: 0.875rem 1rem;
