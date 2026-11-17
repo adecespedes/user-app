@@ -62,9 +62,13 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--background);
   border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  margin-bottom: 0;
 }
 
 .header h1 {
@@ -77,6 +81,13 @@ body::before {
 
 .header h1 span {
   color: var(--primary);
+}
+
+/* =========================================
+   Main Content Padding
+   ========================================= */
+.main-content {
+  padding-top: 4rem;
 }
 
 /* =========================================

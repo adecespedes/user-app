@@ -72,41 +72,43 @@ function App() {
         </div>
       </header>
 
-      <main className="users-grid">
-        {filteredUsers.length === 0 && searchTerm !== "" ? (
-          <div className="empty-state">
-            No se encontraron usuarios con ese nombre
-          </div>
-        ) : (
-          filteredUsers.map((user) => (
-            <div key={user.id} className="user-card">
-              <h3>{user.name}</h3>
-              <p>
-                <strong>Usuario:</strong> {user.username}
-              </p>
-              <p>
-                <strong>Email:</strong> {user.email}
-              </p>
-              <p>
-                <strong>Teléfono:</strong> {user.phone}
-              </p>
-              <p>
-                <strong>Sitio web:</strong>{" "}
-                <a
-                  href={`https://${user.website}`}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  {user.website}
-                </a>
-              </p>
-              <p>
-                <strong>Dirección:</strong> {user.address.street},{" "}
-                {user.address.city} {user.address.zipcode}
-              </p>
+      <main className="main-content">
+        <div className="users-grid">
+          {filteredUsers.length === 0 && searchTerm !== "" ? (
+            <div className="empty-state">
+              No se encontraron usuarios con ese nombre
             </div>
-          ))
-        )}
+          ) : (
+            filteredUsers.map((user) => (
+              <div key={user.id} className="user-card">
+                <h3>{user.name}</h3>
+                <p>
+                  <strong>Usuario:</strong> {user.username}
+                </p>
+                <p>
+                  <strong>Email:</strong> {user.email}
+                </p>
+                <p>
+                  <strong>Teléfono:</strong> {user.phone}
+                </p>
+                <p>
+                  <strong>Sitio web:</strong>{" "}
+                  <a
+                    href={`https://${user.website}`}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {user.website}
+                  </a>
+                </p>
+                <p>
+                  <strong>Dirección:</strong> {user.address.street},{" "}
+                  {user.address.city} {user.address.zipcode}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
       </main>
     </div>
   );
